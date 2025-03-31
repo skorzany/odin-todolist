@@ -6,6 +6,69 @@
     <title>ToDo List</title>
 </head>
 <body>
-    
+    <aside>
+        <div class="profile-info">
+            <div class="profile-pic"></div>
+            <p class="profile-name">Your-Profile-Name</p>
+        </div>
+        <button class="side-btn">Add new project</button>
+        <div id="side-content">
+            <div class="project">
+                <p class="project-name">Project1</p>
+                <ol class="tasks">
+                    <li class="task">Task1</li>
+                    <li class="task">Task2</li>
+                    <li class="task">Task3</li>
+                    <li class="new-task">Add new task</li>
+                </ol>
+            </div>
+            <div class="project collapsed">
+                <p class="project-name">Project2</p>
+                <ol class="tasks hidden">
+                    <li class="task">Task1</li>
+                    <li class="task">Task2</li>
+                    <li class="new-task">Add new task</li>
+                </ol>
+            </div>
+            <div class="project collapsed">
+                <p class="project-name">Project3</p>
+                <ol class="tasks hidden">
+                    <li class="new-task">Add new task</li>
+                </ol>
+            </div>
+            <div class="project">
+                <p class="project-name">Project4</p>
+                <ol class="tasks">
+                    <li class="task">Task1</li>
+                    <li class="task">Task2</li>
+                    <li class="new-task">Add new task</li>
+                </ol>
+            </div>
+        </div>
+    </aside>
+    <main>
+        <div id="main-content">
+            <div class="task-card">
+                <h1 class="task-title">Task title</h1>
+                <h2>Due date: <span class="due-date">31-03-2025</span></h2>
+                <h3 class="task-description">This is a short description of the selected task, without much details.</h3>
+                <div class="task-details">
+                    <div class="detail">
+                        <p>Priority: <span class="priority">Normal</span></p>
+                    </div>
+                    <!-- <div class="detail">
+                        <p>Due date: <span class="due-date">31-03-2025</span></p>
+                    </div> -->
+                    <div class="detail">
+                        <p>Completion status: <span class="completion">Finished</span></p>
+                    </div>
+                </div>
+                <div class="notes">
+                    <p>This is the place where you can provide more details about the viewed task, or store whatever you want. The only limitation is that it's gotta be a text.</p>
+                </div>
+            </div>
+        </div>
+        <a class="footer" href="https://github.com/skorzany/">&copy; 2025 Skorzany</a>
+    </main>
 </body>
 </html>

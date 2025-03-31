@@ -1,3 +1,121 @@
-body {
-    background-color: rebeccapurple;
+:root {
+    font-size: 16px;
+    --sidebar-color: #7FC6A4;
+    --main-color: #5D737E;
+    --card-color: #D6F8D6;
+    --border-color: #55505C;
+    --button-color: #5D737E;
+    --profile-color: #FAF33E;
+    --min-card-width: 400px;
 }
+
+body {
+    display: flex;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+main {
+    background-color: var(--main-color);
+    flex: 1;
+    padding: 3rem 3rem 0 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+button {
+    padding: .25rem .5rem;
+    background-color: var(--button-color);
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.footer {
+    padding: .5rem;
+    margin-top: auto;
+    text-decoration: none;
+    align-self: center;
+}
+
+.footer:visited {
+    color: inherit;
+}
+
+/* SIDEBAR STYLING */
+aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    padding: 1rem;
+    background-color: var(--sidebar-color);
+    min-width: max-content;
+}
+
+.profile-info {
+    display: flex;
+    justify-content: space-between;
+    
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.profile-pic {
+    background-color: var(--profile-color);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+}
+
+.profile-name {
+    align-self: center;
+}
+/* END OF SIDEBAR STYLING */
+
+/* CARD STYLING */
+.task-card {
+    background-color: var(--card-color);
+    border-radius: 1rem;
+    padding: 3rem;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    min-width: var(--min-card-width);
+}
+
+.task-title {
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+    width: 40%;
+}
+
+.task-description {
+    padding-bottom: 1.5rem;
+}
+
+.task-details {
+    display: flex;
+    justify-content: space-around;
+    gap: 1.5rem;
+    width: 80%;
+    padding-bottom: 1.5rem;
+}
+
+.notes {
+    padding: 1.5rem;
+    border: 5px solid var(--border-color);
+    font-size: .75rem;
+    width: 60%;
+    text-wrap: balance;
+    background-color: var(--button-color);
+    border-radius: 1rem;
+}
+/* END OF CARD STYLING */
