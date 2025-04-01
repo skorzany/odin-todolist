@@ -7,42 +7,28 @@
 </head>
 <body>
     <aside>
-        <div class="profile-info">
-            <div class="profile-pic"></div>
-            <p class="profile-name">Your-Profile-Name</p>
+        <div class="side-header">
+            <div class="profile-info">
+                <div class="profile-pic"></div>
+                <p class="profile-name">Your-Profile-Name</p>
+            </div>
+            <button class="side-btn">Add new project</button>
         </div>
-        <button class="side-btn">Add new project</button>
         <div id="side-content">
-            <div class="project">
-                <p class="project-name">Project1</p>
-                <ol class="tasks">
-                    <li class="task">Task1</li>
-                    <li class="task">Task2</li>
-                    <li class="task">Task3</li>
-                    <li class="new-task">Add new task</li>
-                </ol>
-            </div>
-            <div class="project collapsed">
-                <p class="project-name">Project2</p>
-                <ol class="tasks hidden">
-                    <li class="task">Task1</li>
-                    <li class="task">Task2</li>
-                    <li class="new-task">Add new task</li>
-                </ol>
-            </div>
-            <div class="project collapsed">
-                <p class="project-name">Project3</p>
-                <ol class="tasks hidden">
-                    <li class="new-task">Add new task</li>
-                </ol>
-            </div>
-            <div class="project">
-                <p class="project-name">Project4</p>
-                <ol class="tasks">
-                    <li class="task">Task1</li>
-                    <li class="task">Task2</li>
-                    <li class="new-task">Add new task</li>
-                </ol>
+            <div class="row">
+                <details class="project">
+                    <summary>Project1</summary>
+                    <ul class="task-list">
+                        <li>Task1</li>
+                        <li>Task2</li>
+                        <li>Task3</li>
+                        <li>New task</li>
+                    </ul>
+                </details>
+                <div class="icons hidden">
+                    <img src="./img/pencil.svg" alt="edit icon" class="side-icon"/>
+                    <img src="./img/delete.svg" alt="delete icon" class="side-icon"/>
+                </div>
             </div>
         </div>
     </aside>
@@ -56,9 +42,6 @@
                     <div class="detail">
                         <p>Priority: <span class="priority">Normal</span></p>
                     </div>
-                    <!-- <div class="detail">
-                        <p>Due date: <span class="due-date">31-03-2025</span></p>
-                    </div> -->
                     <div class="detail">
                         <p>Completion status: <span class="completion">Finished</span></p>
                     </div>

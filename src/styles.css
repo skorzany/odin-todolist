@@ -7,6 +7,7 @@
     --button-color: #5D737E;
     --profile-color: #FAF33E;
     --min-card-width: 400px;
+    --icon-color: invert(30%) sepia(14%) saturate(429%) hue-rotate(223deg) brightness(92%) contrast(83%);
 }
 
 body {
@@ -14,6 +15,7 @@ body {
 
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 
 main {
@@ -23,6 +25,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow-y: scroll;
 }
 
 button {
@@ -44,16 +47,30 @@ button {
     color: inherit;
 }
 
+.hidden {
+    display: none;
+}
 /* SIDEBAR STYLING */
 aside {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 1rem;
 
-    padding: 1rem;
+    padding: 0 1rem 1rem;
     background-color: var(--sidebar-color);
     min-width: max-content;
+    overflow-y: scroll;
+}
+
+.side-header {
+    position: sticky;
+    top: 0;
+    text-align: center;
+    background-color: var(--sidebar-color);
+    padding-top: 1rem;
+}
+
+.side-btn {
+    margin: 1rem 0;
 }
 
 .profile-info {
@@ -63,6 +80,7 @@ aside {
     gap: 1rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
 }
 
 .profile-pic {
@@ -75,6 +93,35 @@ aside {
 .profile-name {
     align-self: center;
 }
+
+.project {
+    cursor: pointer;
+}
+
+.project:nth-child(n+2) {
+    margin-top: .5rem;
+}
+
+.side-icon {
+    height: 1rem;
+    position: relative;
+    top: .3rem;
+    filter: var(--icon-color);
+}
+
+.project:hover + .icons {
+    display: flex;
+    gap: .75rem;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+details {
+    flex: 1;
+}
 /* END OF SIDEBAR STYLING */
 
 /* CARD STYLING */
@@ -83,6 +130,7 @@ aside {
     border-radius: 1rem;
     padding: 3rem;
     text-align: center;
+    box-shadow: 0.4rem 0.6rem 1rem rgba(0, 0, 0, 0.1);
 
     display: flex;
     flex-direction: column;
