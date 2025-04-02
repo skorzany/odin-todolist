@@ -1,6 +1,7 @@
 :root {
     font-size: 16px;
     --sidebar-color: #7FC6A4;
+    --sidebar-width: 260px;
     --main-color: #5D737E;
     --card-color: #D6F8D6;
     --border-color: #55505C;
@@ -49,6 +50,8 @@ button {
 
 .hidden {
     display: none;
+    /* visibility: hidden; */
+    /* visibility should be set to hidden, but it is set as none only for debugging */
 }
 /* SIDEBAR STYLING */
 aside {
@@ -57,7 +60,7 @@ aside {
 
     padding: 0 1rem 1rem;
     background-color: var(--sidebar-color);
-    min-width: max-content;
+    width: var(--sidebar-width);
     overflow-y: scroll;
 }
 
@@ -98,10 +101,6 @@ aside {
     cursor: pointer;
 }
 
-.project:nth-child(n+2) {
-    margin-top: .5rem;
-}
-
 .side-icon {
     height: 1rem;
     position: relative;
@@ -117,10 +116,31 @@ aside {
 .row {
     display: flex;
     justify-content: space-between;
+    margin-top: .5rem;
 }
 
 details {
     flex: 1;
+}
+
+summary {
+    font-weight: bold;
+    font-size: .9rem;
+}
+
+.task, .new-task {
+    font-size: .75rem;
+    margin-top: .25rem;
+}
+
+.task:hover, .new-task:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--border-color);
+}
+
+.new-task {
+    color: var(--border-color);
+    list-style-type: none;
 }
 /* END OF SIDEBAR STYLING */
 
