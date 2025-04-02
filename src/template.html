@@ -26,8 +26,8 @@
                     </ul>
                 </details>
                 <div class="icons hidden">
-                    <img src="./img/pencil.svg" alt="edit task icon" class="side-icon"/>
-                    <img src="./img/delete.svg" alt="delete task icon" class="side-icon"/>
+                    <img class="icon small-icon" src="./img/pencil.svg" alt="edit project"/>
+                    <img class="icon small-icon" src="./img/delete.svg" alt="delete project"/>
                 </div>
             </div>
             <div class="row">
@@ -38,8 +38,8 @@
                     </ul>
                 </details>
                 <div class="icons hidden">
-                    <img src="./img/pencil.svg" alt="edit task icon" class="side-icon"/>
-                    <img src="./img/delete.svg" alt="delete task icon" class="side-icon"/>
+                    <img class="icon small-icon" src="./img/pencil.svg" alt="edit task icon"/>
+                    <img class="icon small-icon" src="./img/delete.svg" alt="delete task icon"/>
                 </div>
             </div>
         </div>
@@ -47,19 +47,31 @@
     <main>
         <div id="main-content">
             <div class="task-card">
-                <h1 class="task-title">Task title</h1>
-                <h2>Due date: <span class="due-date">31-03-2025</span></h2>
-                <h3 class="task-description">This is a short description of the selected task, without much details.</h3>
+                <div class="card-title">
+                    <h1 class="task-title">Task title</h1>
+                    <img class="icon big-icon hidden" src="./img/pencil.svg" alt="edit task title">
+                </div>
+                <div class="card-date">
+                    <h2>Due date: <span class="due-date">31-03-2025</span></h2>
+                    <img class="icon mid-icon hidden" src="./img/pencil.svg" alt="edit task date">
+                </div>
+                <div class="card-desc">
+                    <h3 class="task-description">This is a short description of the selected task, without much details.</h3>
+                    <img class="icon mid-icon hidden" src="./img/pencil.svg" alt="edit task description">
+                </div>
                 <div class="task-details">
                     <div class="detail">
                         <p>Priority: <span class="priority">Normal</span></p>
+                        <img class="icon small-icon hidden" src="./img/pencil.svg" alt="Change task priority">
                     </div>
                     <div class="detail">
                         <p>Completion status: <span class="completion">Finished</span></p>
+                        <img class="icon small-icon hidden" src="./img/pencil.svg" alt="Change task status">
                     </div>
                 </div>
-                <div class="notes">
-                    <p>This is the place where you can provide more details about the viewed task, or store whatever you want. The only limitation is that it's gotta be a text.</p>
+                <div class="card-notes">
+                    <p>This is the place where you can provide more details about the viewed task, or store whatever you want. The only limitation is that it's gotta be a text.</br></br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem iure, aliquid tempora maxime quod deleniti libero? Corrupti ipsam, exercitationem odit, officiis error, voluptatum eum doloremque molestiae animi excepturi quam esse.</br></br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi exercitationem voluptates provident omnis dolorum illo consequatur a perspiciatis possimus debitis labore, soluta maxime, suscipit delectus cumque? Quos, recusandae? Reprehenderit, eum!</p>
+                    <img class="icon large-icon hidden" src="./img/pencil.svg" alt="edit task notes">
                 </div>
             </div>
         </div>

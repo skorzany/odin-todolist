@@ -101,11 +101,14 @@ aside {
     cursor: pointer;
 }
 
-.side-icon {
+.icon {
+    filter: var(--icon-color);
+}
+
+.small-icon {
     height: 1rem;
     position: relative;
     top: .3rem;
-    filter: var(--icon-color);
 }
 
 .project:hover + .icons {
@@ -128,12 +131,14 @@ summary {
     font-size: .9rem;
 }
 
-.task, .new-task {
+.task,
+.new-task {
     font-size: .75rem;
     margin-top: .25rem;
 }
 
-.task:hover, .new-task:hover {
+.task:hover,
+.new-task:hover {
     text-decoration: underline;
     text-decoration-color: var(--border-color);
 }
@@ -159,10 +164,46 @@ summary {
     min-width: var(--min-card-width);
 }
 
-.task-title {
+.card-title {
+    display: flex;
+    justify-content: center;
     padding-bottom: 1rem;
     border-bottom: 2px solid var(--border-color);
     width: 40%;
+}
+
+.card-date,
+.card-desc,
+.detail {
+    display: flex;
+    justify-content: center;
+}
+
+.card-title:hover .big-icon,
+.card-date:hover .mid-icon,
+.card-desc:hover .mid-icon,
+.detail:hover .small-icon,
+.card-notes:hover .large-icon  {
+    display: flex;
+    position: relative;
+    left: 1.5rem;
+}
+
+.large-icon {
+    height: 2.5rem;
+    align-self: center;
+}
+
+.big-icon {
+    height: 2rem;
+    position: relative;
+    top: 0.5rem;
+}
+
+.mid-icon {
+    height: 1.5rem;
+    position: relative;
+    top: 0.3rem;
 }
 
 .task-description {
@@ -177,7 +218,7 @@ summary {
     padding-bottom: 1.5rem;
 }
 
-.notes {
+.card-notes {
     padding: 1.5rem;
     border: 5px solid var(--border-color);
     font-size: .75rem;
@@ -185,5 +226,7 @@ summary {
     text-wrap: balance;
     background-color: var(--button-color);
     border-radius: 1rem;
+
+    display: flex;
 }
 /* END OF CARD STYLING */
