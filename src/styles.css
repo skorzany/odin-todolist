@@ -7,8 +7,14 @@
     --border-color: #55505C;
     --button-color: #5D737E;
     --profile-color: #FAF33E;
-    --min-card-width: 400px;
+    --card-min-width: 700px;
+    --card-padding: 3rem;
+    --card-gap: 1.5rem;
     --icon-color: invert(30%) sepia(14%) saturate(429%) hue-rotate(223deg) brightness(92%) contrast(83%);
+    --icon-small-size: 1rem;
+    --icon-mid-size: 1.5rem;
+    --icon-big-size: 2rem;
+    --icon-large-size: 2.5rem;
 }
 
 body {
@@ -48,11 +54,39 @@ button {
     color: inherit;
 }
 
-.hidden {
+.invisible {
     display: none;
-    /* visibility: hidden; */
-    /* visibility should be set to hidden, but it is set as none only for debugging */
 }
+/* ICON STYLING */
+.icon {
+    filter: var(--icon-color);
+}
+
+.icon-small {
+    width: var(--icon-small-size);
+}
+
+.icon-medium {
+    width: var(--icon-mid-size);
+}
+
+.icon-big {
+    width: var(--icon-big-size);
+}
+
+.icon-large {
+    width: var(--icon-large-size);
+}
+
+.corner {
+    align-self: flex-end;
+    transform: translate(
+        var(--icon-large-size),
+        calc(-1*var(--icon-large-size))
+    );
+}
+/* END OF ICON STYLING */
+
 /* SIDEBAR STYLING */
 aside {
     display: flex;
@@ -101,16 +135,6 @@ aside {
     cursor: pointer;
 }
 
-.icon {
-    filter: var(--icon-color);
-}
-
-.small-icon {
-    height: 1rem;
-    position: relative;
-    top: .3rem;
-}
-
 .project:hover + .icons {
     display: flex;
     gap: .75rem;
@@ -153,80 +177,90 @@ summary {
 .task-card {
     background-color: var(--card-color);
     border-radius: 1rem;
-    padding: 3rem;
-    text-align: center;
+    padding: var(--card-padding);
     box-shadow: 0.4rem 0.6rem 1rem rgba(0, 0, 0, 0.1);
+    text-align: center;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
-    min-width: var(--min-card-width);
+    gap: var(--card-gap);
+    min-width: var(--card-min-width);
 }
 
-.card-title {
+.title-row {
     display: flex;
     justify-content: center;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid var(--border-color);
-    width: 40%;
-}
-
-.card-date,
-.card-desc,
-.detail {
-    display: flex;
-    justify-content: center;
-}
-
-.card-title:hover .big-icon,
-.card-date:hover .mid-icon,
-.card-desc:hover .mid-icon,
-.detail:hover .small-icon,
-.card-notes:hover .large-icon  {
-    display: flex;
+    margin-top: calc(-1*(var(--card-gap) + var(--icon-large-size)));
+    width: 90%;
     position: relative;
-    left: 1.5rem;
 }
 
-.large-icon {
-    height: 2.5rem;
+.title-row::before {
+    content: "";
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-bottom: 1px solid var(--border-color);
+    width: 70%;
+}
+
+.title-row:hover .icon {
+    display: block;
     align-self: center;
+    position: absolute;
+    right: var(--icon-big-size);
 }
 
-.big-icon {
-    height: 2rem;
-    position: relative;
-    top: 0.5rem;
-}
-
-.mid-icon {
-    height: 1.5rem;
-    position: relative;
-    top: 0.3rem;
-}
-
-.task-description {
-    padding-bottom: 1.5rem;
-}
-
-.task-details {
+.date-row {
     display: flex;
-    justify-content: space-around;
-    gap: 1.5rem;
-    width: 80%;
-    padding-bottom: 1.5rem;
+    justify-content: center;
+    width: 90%;
+    position: relative;
 }
 
-.card-notes {
-    padding: 1.5rem;
-    border: 5px solid var(--border-color);
-    font-size: .75rem;
-    width: 60%;
+.date-row:hover .icon {
+    display: block;
+    align-self: center;
+    position: absolute;
+    right: calc(3*var(--icon-big-size));
+}
+
+.desc-row {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    position: relative;
+}
+
+.desc-row:hover .icon {
+    display: block;
+    align-self: center;
+    position: absolute;
+    right: var(--icon-big-size);
+}
+
+/* details row is tricky and needs more tinkering so i'll leave it for now */
+
+.notes-row {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    position: relative;
+
     text-wrap: balance;
-    background-color: var(--button-color);
+    border: .5rem solid var(--border-color);
     border-radius: 1rem;
+    background-color: var(--button-color);
+    padding: 1rem 2.5rem 1rem 1rem;
+}
 
-    display: flex;
+.notes-row:hover .icon {
+    display: block;
+    align-self: center;
+    position: absolute;
+    right: 0;
 }
 /* END OF CARD STYLING */
