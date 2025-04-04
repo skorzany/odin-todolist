@@ -1,266 +1,145 @@
 :root {
     font-size: 16px;
-    --sidebar-color: #7FC6A4;
-    --sidebar-width: 260px;
-    --main-color: #5D737E;
-    --card-color: #D6F8D6;
-    --border-color: #55505C;
-    --button-color: #5D737E;
-    --profile-color: #FAF33E;
-    --card-min-width: 700px;
-    --card-padding: 3rem;
-    --card-gap: 1.5rem;
-    --icon-color: invert(30%) sepia(14%) saturate(429%) hue-rotate(223deg) brightness(92%) contrast(83%);
-    --icon-small-size: 1rem;
-    --icon-mid-size: 1.5rem;
-    --icon-big-size: 2rem;
-    --icon-large-size: 2.5rem;
+    --side-color: #B4ADEA;
+    --main-color: #50514F;
+    --card-color: #FDFFF7;
+    --border-color: #59FFA0;
+    --icon-color: #59FFA0;
+    --photo-color: #FFED65;
+    --side-width: 10vw;
+    --icon-big-width: 2rem;
+    --icon-big-margin: calc(.5*var(--icon-big-width));
+    --side-padding: 1rem;
+    --main-padding: 3rem;
+    --card-padding: 2rem;
 }
 
+/* BASE LAYOUT & STYLES */
 body {
-    display: flex;
-
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    display: flex;
+}
+
+aside {
+    width: var(--side-width);
+    background-color: var(--side-color);
 }
 
 main {
-    background-color: var(--main-color);
     flex: 1;
-    padding: 3rem 3rem 0 3rem;
+    padding: var(--main-padding);
+    padding-bottom: 0;
+    background-color: var(--main-color);
+
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    overflow-y: scroll;
 }
 
-button {
-    padding: .25rem .5rem;
-    background-color: var(--button-color);
-    border: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
-}
-
-.footer {
-    padding: .5rem;
+footer{
     margin-top: auto;
-    text-decoration: none;
-    align-self: center;
+    text-align: center;
+    padding-bottom: .5rem;
 }
 
-.footer:visited {
+a {
+    text-decoration: none;
+}
+
+a:visited {
     color: inherit;
 }
+/* END OF BASE LAYOUT & STYLES */
 
-.invisible {
-    display: none;
-}
-/* ICON STYLING */
+/* ICONS */
 .icon {
-    filter: var(--icon-color);
-}
-
-.icon-small {
-    width: var(--icon-small-size);
-}
-
-.icon-medium {
-    width: var(--icon-mid-size);
+    cursor: pointer;
+    filter: brightness(0) saturate(100%) invert(100%) sepia(43%) saturate(3019%) hue-rotate(64deg) brightness(107%) contrast(103%);
 }
 
 .icon-big {
-    width: var(--icon-big-size);
+    width: var(--icon-big-width);
 }
+/* END OF ICONS */
 
-.icon-large {
-    width: var(--icon-large-size);
-}
+/* SIDEBAR */
+/* END OF SIDEBAR */
 
-.corner {
-    align-self: flex-end;
-    transform: translate(
-        var(--icon-large-size),
-        calc(-1*var(--icon-large-size))
-    );
-}
-/* END OF ICON STYLING */
-
-/* SIDEBAR STYLING */
-aside {
-    display: flex;
-    flex-direction: column;
-
-    padding: 0 1rem 1rem;
-    background-color: var(--sidebar-color);
-    width: var(--sidebar-width);
-    overflow-y: scroll;
-}
-
-.side-header {
-    position: sticky;
-    top: 0;
-    text-align: center;
-    background-color: var(--sidebar-color);
-    padding-top: 1rem;
-}
-
-.side-btn {
-    margin: 1rem 0;
-}
-
-.profile-info {
-    display: flex;
-    justify-content: space-between;
-    
-    gap: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border-color);
-    cursor: pointer;
-}
-
-.profile-pic {
-    background-color: var(--profile-color);
-    width: 3rem;
-    height: 3rem;
-    border-radius: 1rem;
-}
-
-.profile-name {
-    align-self: center;
-}
-
-.project {
-    cursor: pointer;
-}
-
-.project:hover + .icons {
-    display: flex;
-    gap: .75rem;
-}
-
-.row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: .5rem;
-}
-
-details {
-    flex: 1;
-}
-
-summary {
-    font-weight: bold;
-    font-size: .9rem;
-}
-
-.task,
-.new-task {
-    font-size: .75rem;
-    margin-top: .25rem;
-}
-
-.task:hover,
-.new-task:hover {
-    text-decoration: underline;
-    text-decoration-color: var(--border-color);
-}
-
-.new-task {
-    color: var(--border-color);
-    list-style-type: none;
-}
-/* END OF SIDEBAR STYLING */
-
-/* CARD STYLING */
+/* TASK CARD */
 .task-card {
     background-color: var(--card-color);
-    border-radius: 1rem;
     padding: var(--card-padding);
+    border-radius: 1rem;
     box-shadow: 0.4rem 0.6rem 1rem rgba(0, 0, 0, 0.1);
-    text-align: center;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--card-gap);
-    min-width: var(--card-min-width);
 }
 
-.title-row {
+.icon-big {
+    margin: var(--icon-big-margin);
+    align-self: flex-end;
+    transform: translate(
+        var(--icon-big-width),
+        calc(-1*var(--icon-big-width))
+    );
+}
+
+.card-details {
+    margin-top: calc(-1*(var(--icon-big-width) + 2*var(--icon-big-margin)));
     display: flex;
-    justify-content: center;
-    margin-top: calc(-1*(var(--card-gap) + var(--icon-large-size)));
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
     width: 90%;
-    position: relative;
 }
 
-.title-row::before {
+.task-title-wrapper {
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.task-title-wrapper:before {
     content: "";
     position: absolute;
-    margin: auto;
-    left: 0;
-    right: 0;
     bottom: 0;
-    border-bottom: 1px solid var(--border-color);
-    width: 70%;
-}
-
-.title-row:hover .icon {
-    display: block;
-    align-self: center;
-    position: absolute;
-    right: var(--icon-big-size);
-}
-
-.date-row {
-    display: flex;
-    justify-content: center;
-    width: 90%;
-    position: relative;
-}
-
-.date-row:hover .icon {
-    display: block;
-    align-self: center;
-    position: absolute;
-    right: calc(3*var(--icon-big-size));
-}
-
-.desc-row {
-    display: flex;
-    justify-content: center;
-    width: 90%;
-    position: relative;
-}
-
-.desc-row:hover .icon {
-    display: block;
-    align-self: center;
-    position: absolute;
-    right: var(--icon-big-size);
-}
-
-/* details row is tricky and needs more tinkering so i'll leave it for now */
-
-.notes-row {
-    display: flex;
-    justify-content: center;
-    width: 90%;
-    position: relative;
-
-    text-wrap: balance;
-    border: .5rem solid var(--border-color);
-    border-radius: 1rem;
-    background-color: var(--button-color);
-    padding: 1rem 2.5rem 1rem 1rem;
-}
-
-.notes-row:hover .icon {
-    display: block;
-    align-self: center;
-    position: absolute;
+    left: -50%;
     right: 0;
+    margin: auto;
+    border-bottom: 2px solid var(--border-color);
+    width: 200%;
 }
-/* END OF CARD STYLING */
+
+.task-title {
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+    padding: 0;
+}
+
+.task-desc {
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-align: center;
+    width: 100%;
+}
+
+.card-row {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+}
+
+fieldset {
+    width: 100%;
+}
+
+.task-notes {
+    padding: 0;
+    /* border: none; */
+    font-size: .75rem;
+    resize: none;
+    width: 100%;
+}
+/* END OF TASK CARD */

@@ -1,82 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDo List</title>
-</head>
-<body>
-    <aside>
-        <div class="side-header">
-            <div class="profile-info">
-                <div class="profile-pic"></div>
-                <p class="profile-name">Your-Profile-Name</p>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ToDo App</title>
+    </head>
+    <body>
+        <aside>
+            <div class="side-top">
+                <div class="profile">
+                    <img src="#" alt="" class="profile-pic">
+                    <p class="user-name">Your-User-Name</p>
+                </div>
+                <button class="btn-new-project">Add new project</button>
             </div>
-            <button class="side-btn">Add new project</button>
-        </div>
-        <div id="side-content">
-            <div class="row">
-                <details class="project">
-                    <summary>Project1</summary>
-                    <ul class="task-list">
-                        <li class="task">12345678901234567890</li>
-                        <li class="task">Task2</li>
-                        <li class="task">Task3</li>
-                        <li class="new-task">Add new task</li>
-                    </ul>
-                </details>
-                <div class="icons hidden">
-                    <img class="icon small-icon" src="./img/pencil.svg" alt="edit project"/>
-                    <img class="icon small-icon" src="./img/delete.svg" alt="delete project"/>
-                </div>
+            <div id="side-content"></div>
+        </aside>
+        <main>
+            <div id="main-content">
+                <form action="" class="task-card">
+                    <img src="./img/close.svg" alt="save & close" class="icon icon-big">
+                    <section class="card-details">
+                        <span class="task-title-wrapper">
+                            <input type="text" name="task-title" id="taskTitle" class="task-title" required />
+                        </span>
+                        <input type="text" name="task-desc" id="taskDesc" class="task-desc">
+                        <div class="card-row">
+                            <div class="card-date">
+                                <label for="due-date">Due date: </label>
+                                <input type="date" id="dueDate" name="due-date">
+                            </div>
+                            <div class="card-priority">
+                                <label for="priority">Priority: </label>
+                                <select name="priority" id="priority">
+                                    <option value="high">High</option>
+                                    <option value="normal">Normal</option>
+                                    <option value="low">Low</option>
+                                </select>
+                            </div>
+                        </div>
+                        <fieldset>
+                            <legend>Task notes:</legend>
+                            <textarea name="task-notes" id="taskNotes" class="task-notes">
+                                This is the place where you can write about the task in more detail. The length is unlimited.
+                            </textarea>
+                        </fieldset>
+                    </section>
+                </form>
             </div>
-            <div class="row">
-                <details class="project">
-                    <summary>12345678901234567890</summary>
-                    <ul class="task-list">
-                        <li class="new-task">Add new task</li>
-                    </ul>
-                </details>
-                <div class="icons hidden">
-                    <img class="icon small-icon" src="./img/pencil.svg" alt="edit task icon"/>
-                    <img class="icon small-icon" src="./img/delete.svg" alt="delete task icon"/>
-                </div>
-            </div>
-        </div>
-    </aside>
-    <main>
-        <div id="main-content">
-            <div class="task-card">
-                <img src="./img/close.svg" alt="close task card" class="icon icon-large corner">
-                <div class="title-row">
-                    <h1 class="task-title">12345678901234567890</h1>
-                    <img src="./img/pencil.svg" alt="edit task title" class="icon icon-big invisible">
-                </div>
-                <div class="date-row">
-                    <h2>Due date: <span class="due-date">31-03-2025</span></h2>
-                    <img src="./img/pencil.svg" alt="edit task date" class="icon icon-big invisible">
-                </div>
-                <div class="desc-row">
-                    <h3 class="task-description">This is a short description of the selected task, without much details.</h3>
-                    <img src="./img/pencil.svg" alt="edit task description" class="icon icon-big invisible">
-                </div>
-                <div class="details-row">
-                    <div class="card-detail">
-                        <p>Priority: <span class="priority">Normal</span></p>
-                        <img src="./img/pencil.svg" alt="change task priority" class="icon icon-small invisible">
-                    </div>
-                    <div class="card-detail">
-                        <p>Completion status: <span class="completion">Finished</span></p>
-                        <img src="./img/pencil.svg" alt="change completion status" class="icon icon-small invisible">
-                    </div>
-                </div>
-                <div class="notes-row">
-                    <p>This is the place where you can provide more details about the viewed task, or store whatever you want. The only limitation is that it's gotta be a text.</br></br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem iure, aliquid tempora maxime quod deleniti libero? Corrupti ipsam, exercitationem odit, officiis error, voluptatum eum doloremque molestiae animi excepturi quam esse.</br></br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi exercitationem voluptates provident omnis dolorum illo consequatur a perspiciatis possimus debitis labore, soluta maxime, suscipit delectus cumque? Quos, recusandae? Reprehenderit, eum!</p>
-                    <img src="./img/pencil.svg" alt="edit task notes" class="icon icon-large invisible">
-                </div>
-            </div>
-        </div>
-        <a class="footer" href="https://github.com/skorzany/">&copy; 2025 Skorzany</a>
-    </main>
-</body>
+            <footer>
+                <a href="https://github.com/skorzany/" class="footer-link">&copy; 2025 Skorzany</a>
+            </footer>
+        </main>
+    </body>
 </html>
