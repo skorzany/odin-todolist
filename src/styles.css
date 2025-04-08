@@ -1,0 +1,120 @@
+:root {
+    font-size: 16px;
+    --sidebar-color: rgba(252, 163, 17, 1);
+    --main-color: #14213D;
+    --card-color: #E5E5E5;
+}
+
+/* ===== PAGE LAYOUT ===== */
+body {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+aside {
+    background-color: var(--sidebar-color);
+}
+
+main {
+    flex: 1;
+    background-color: var(--main-color);
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+    margin-bottom: .5rem;
+    text-align: center;
+}
+
+footer a {
+    text-decoration: none;
+}
+
+footer a:visited {
+    color: inherit;
+}
+/* ===== END OF PAGE LAYOUT ===== */
+
+/* ===== ICONS ===== */
+.icon {
+    cursor: pointer;
+}
+
+.icon-profile {
+    width: 3rem;
+}
+
+.icon-side {
+    width: 1rem;
+}
+
+.test:hover {
+    background-color: red;
+}
+/* ===== END OF ICONS ===== */
+
+/* ===== BUTTONS ===== */
+button {
+    cursor: pointer;
+}
+/* ===== END OF BUTTONS ===== */
+
+/* ===== SIDEBAR ===== */
+aside {
+    padding: 1rem;
+    padding-top: 0;
+    width: clamp(250px, 15vw, 350px);
+    overflow-y: scroll;
+}
+
+.sidebar-top {
+    border-bottom: 1px solid black;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    background-color: var(--sidebar-color);
+}
+
+.profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    padding-top: 1rem;
+}
+
+.btn-new-project {
+    margin-bottom: 1rem;
+}
+
+.project {
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+summary {
+    display: flex;
+    justify-content: space-between;
+}
+
+.project-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+}
+
+.icons {
+    display: none;
+    gap: .5rem;
+}
+
+details:hover .icons {
+    display: flex;
+}
+/* ===== END OF SIDEBAR ===== */
