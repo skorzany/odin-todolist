@@ -1,8 +1,8 @@
 :root {
     font-size: 16px;
     --sidebar-color: rgba(252, 163, 17, 1);
-    --main-color: #14213D;
-    --card-color: #E5E5E5;
+    --main-color: rgba(20, 33, 61, 1);
+    --card-color: rgba(229, 229, 229, 1);
 }
 
 /* ===== PAGE LAYOUT ===== */
@@ -28,6 +28,8 @@ footer {
     margin-top: auto;
     margin-bottom: .5rem;
     text-align: center;
+    color: var(--card-color);
+    font-size: .75rem;
 }
 
 footer a {
@@ -42,6 +44,7 @@ footer a:visited {
 /* ===== ICONS ===== */
 .icon {
     cursor: pointer;
+    filter: invert(11%) sepia(11%) saturate(4734%) hue-rotate(189deg) brightness(92%) contrast(95%);
 }
 
 .icon-profile {
@@ -52,8 +55,9 @@ footer a:visited {
     width: 1rem;
 }
 
-.test:hover {
-    background-color: red;
+.icon:hover {
+    backdrop-filter: opacity(.15);
+    border-radius: 25%;
 }
 /* ===== END OF ICONS ===== */
 
@@ -77,6 +81,7 @@ aside {
     position: sticky;
     top: 0;
     background-color: var(--sidebar-color);
+    z-index: 1;
 }
 
 .profile {
@@ -88,13 +93,18 @@ aside {
     padding-top: 1rem;
 }
 
+.profile p {
+    font-weight: bold;
+}
+
 .btn-new-project {
     margin-bottom: 1rem;
 }
 
 .project {
-    margin-top: 1rem;
+    margin: 1rem 0;
     cursor: pointer;
+    padding: .25rem;
 }
 
 summary {
@@ -116,5 +126,46 @@ summary {
 
 details:hover .icons {
     display: flex;
+}
+
+details:last-of-type {
+    margin-bottom: 0;
+}
+
+.project:hover {
+    backdrop-filter: brightness(90%);
+    border-radius: .25rem;
+}
+
+li {
+    padding-left: 1rem;
+    margin-top: .25rem;
+    font-size: .85rem;
+}
+
+li:hover {
+    text-decoration: underline dotted var(--main-color);
+}
+
+li::marker {
+    font-size: .75rem;
+}
+
+.task::marker {
+    content: "◾";
+}
+
+.task-completed::marker {
+    content: "✔️";
+}
+
+.task-new::marker {
+    content: "➕";
+}
+
+.task-new {
+    margin-top: .25rem;
+    color: var(--main-color);
+    text-align: bottom;
 }
 /* ===== END OF SIDEBAR ===== */
