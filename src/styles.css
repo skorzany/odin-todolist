@@ -1,6 +1,6 @@
 :root {
     font-size: 16px;
-    --sidebar-color: rgba(252, 163, 17, 1);
+    --side-color: rgba(252, 163, 17, 1);
     --main-color: rgba(20, 33, 61, 1);
     --card-color: rgba(229, 229, 229, 1);
 }
@@ -11,10 +11,12 @@ body {
     width: 100vw;
     height: 100vh;
     overflow-y: hidden;
+    caret-color: var(--side-color);
 }
 
 aside {
-    background-color: var(--sidebar-color);
+    background-color: var(--side-color);
+    flex-shrink: 0;
 }
 
 main {
@@ -22,6 +24,7 @@ main {
     background-color: var(--main-color);
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
 }
 
 footer {
@@ -55,8 +58,17 @@ footer a:visited {
     width: 1rem;
 }
 
-.icon:hover {
+.icon-card {
+    width: 2rem;
+}
+
+aside .icon:hover {
     backdrop-filter: opacity(.15);
+    border-radius: 25%;
+}
+
+main .icon:hover {
+    backdrop-filter: opacity(.5);
     border-radius: 25%;
 }
 /* ===== END OF ICONS ===== */
@@ -76,11 +88,11 @@ aside {
 }
 
 .sidebar-top {
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid var(--main-color);
     text-align: center;
     position: sticky;
     top: 0;
-    background-color: var(--sidebar-color);
+    background-color: var(--side-color);
     z-index: 1;
 }
 
@@ -119,12 +131,12 @@ summary {
     flex: 1;
 }
 
-.icons {
+.side-icons {
     display: none;
     gap: .5rem;
 }
 
-details:hover .icons {
+details:hover .side-icons {
     display: flex;
 }
 
@@ -169,3 +181,153 @@ li::marker {
     text-align: bottom;
 }
 /* ===== END OF SIDEBAR ===== */
+
+/* ===== TASK CARD ===== */
+.task-card {
+    background-color: var(--card-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 3rem;
+    border-radius: 1.5rem;
+    min-width: 600px;
+    text-align: center;
+    cursor: default;
+}
+
+*[contenteditable] {
+    cursor: text;
+}
+
+.card-icons {
+    align-self: flex-end;
+    display: flex;
+    justify-content: space-between;
+    gap: .75rem;
+    transform: translate(-1rem, 1rem);  /*change later to half of card-icon width*/
+}
+
+.task-title {
+    position: relative;
+    padding-bottom: .5rem;
+    width: 60%;
+    border-radius: 2rem;
+    padding: .25rem 2rem;
+}
+
+.task-title[contenteditable]:empty::before {
+    content: "Task title";
+    color: gray;
+}
+
+.task-title:focus {
+    outline: 1px dashed var(--side-color);
+}
+
+.task-title:before {
+    content: "";
+    position: absolute;
+    margin: auto;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 60%;
+    border-bottom: 2px solid var(--side-color);
+}
+
+.task-desc {
+    margin: .5rem;
+    margin-top: .75rem;
+    width: 80%;
+    border-radius: 1rem;
+    padding: .25rem 1rem;
+}
+
+.task-desc:focus {
+    outline: 1px dashed var(--side-color);
+}
+
+.task-desc[contenteditable]:empty::before {
+    content: "This is your task's description. Keep it short, without much detail.";
+    color: gray;
+}
+
+.card-controls {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 80%;
+}
+
+.controls-top {
+    display: flex;
+    justify-content: space-around;
+}
+
+input[type="date"] {
+    border: none;
+    outline: 1px dashed var(--side-color);
+    border-radius: 1rem;
+    padding: 1px 6px;
+    cursor: pointer;
+}
+
+select {
+    background-color: white;
+    border: none;
+    outline: 1px dashed var(--side-color);
+    border-radius: 1rem;
+    padding: 1px 6px;
+    cursor: pointer;
+}
+
+fieldset {
+    align-self: center;
+    border-color: var(--side-color);
+    border-style: solid;
+}
+
+fieldset ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+
+fieldset ul li:hover {
+    text-decoration: none;
+}
+
+fieldset label {
+    cursor: pointer;
+}
+
+fieldset li+li {
+    margin-top: .5rem;
+}
+
+.task-card p {
+    width: 80%;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.task-notes {
+    display: block;
+    width: 100%;
+    min-height: 2rem;
+    padding: 1px 6px;
+    border: 1px solid var(--side-color);
+    background-color: white;
+}
+
+.task-notes:focus {
+    outline: none;
+}
+
+.task-notes[contenteditable]:empty::before {
+    content: "This is the place where you can add notes to your task. It can be as long as you want and formatted as you want, the only limitation is that it's gotta be text.";
+    color: gray;
+}
+/* ===== END OF TASK CARD ===== */

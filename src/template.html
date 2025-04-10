@@ -18,7 +18,7 @@
             <details class="project">
                 <summary>
                     <span class="project-name">Project1 has a very long name so i need to see how it behaves</span>
-                    <span class="icons">
+                    <span class="side-icons">
                         <img src="./img/pencil.svg" alt="edit icon" title="Change project's name" class="icon icon-side">
                         <img src="./img/delete.svg" alt="trash icon" title="Delete project" class="icon icon-side">
                     </span>
@@ -33,7 +33,7 @@
             <details class="project">
                 <summary>
                     <span class="project-name">Project2</span>
-                    <span class="icons">
+                    <span class="side-icons">
                         <img src="./img/pencil.svg" alt="edit icon" title="Change project's name" class="icon icon-side">
                         <img src="./img/delete.svg" alt="trash icon" title="Delete project" class="icon icon-side">
                     </span>
@@ -46,7 +46,7 @@
             <details class="project">
                 <summary>
                     <span class="project-name">Project3</span>
-                    <span class="icons">
+                    <span class="side-icons">
                         <img src="./img/pencil.svg" alt="edit icon" title="Change project's name" class="icon icon-side">
                         <img src="./img/delete.svg" alt="trash icon" title="Delete project" class="icon icon-side">
                     </span>
@@ -63,7 +63,7 @@
             <details class="project">
                 <summary>
                     <span class="project-name">Project4</span>
-                    <span class="icons">
+                    <span class="side-icons">
                         <img src="./img/pencil.svg" alt="edit icon" title="Change project's name" class="icon icon-side">
                         <img src="./img/delete.svg" alt="trash icon" title="Delete project" class="icon icon-side">
                     </span>
@@ -78,7 +78,7 @@
             <details class="project">
                 <summary>
                     <span class="project-name">Project5</span>
-                    <span class="icons">
+                    <span class="side-icons">
                         <img src="./img/pencil.svg" alt="edit icon" title="Change project's name" class="icon icon-side">
                         <img src="./img/delete.svg" alt="trash icon" title="Delete project" class="icon icon-side">
                     </span>
@@ -93,7 +93,7 @@
             <details class="project">
                 <summary>
                     <span class="project-name">Project6</span>
-                    <span class="icons">
+                    <span class="side-icons">
                         <img src="./img/pencil.svg" alt="edit icon" title="Change project's name" class="icon icon-side">
                         <img src="./img/delete.svg" alt="trash icon" title="Delete project" class="icon icon-side">
                     </span>
@@ -106,7 +106,7 @@
             <details class="project">
                 <summary>
                     <span class="project-name">Project7</span>
-                    <span class="icons">
+                    <span class="side-icons">
                         <img src="./img/pencil.svg" alt="edit icon" title="Change project's name" class="icon icon-side">
                         <img src="./img/delete.svg" alt="trash icon" title="Delete project" class="icon icon-side">
                     </span>
@@ -121,7 +121,53 @@
         </div>
     </aside>
     <main>
-        <div id="main-content"></div>
+        <div id="main-content">
+            <div class="task-card">
+                <div class="card-icons">
+                    <img src="./img/delete.svg" alt="trash icon" title="Delete task" class="icon icon-card">
+                    <img src="./img/close.svg" alt="close card" title="Save and close" class="icon icon-card">
+                </div>
+                <h1 class="task-title" contenteditable="plaintext-only"></h1>
+                <h3 class="task-desc" contenteditable="plaintext-only"></h3>
+                <div class="card-controls">
+                    <div class="controls-top">
+                        <div class="card-date">
+                            <label for="dueDate">DueDate: 
+                                <input type="date" name="dueDate" id="dueDate" />
+                            </label>
+                        </div>
+                        <div class="card-priority">
+                            <label for="priority">Priority: </label>
+                            <select name="task-priority" id="priority">
+                                <option value="low">Low</option>
+                                <option value="normal" selected>Normal</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                    </div>
+                    <fieldset>
+                        <legend>Completion status</legend>
+                        <ul>
+                            <li>
+                                <label for="incomplete">
+                                    <input type="radio" id="incomplete" name="completionStatus" value=0>
+                                    Not finished
+                                </label>
+                            </li>
+                            <li>
+                                <label for="complete">
+                                    <input type="radio" id="complete" name="completionStatus" value=1>
+                                    Already done
+                                </label>
+                            </li>
+                        </ul>
+                    </fieldset>
+                </div>
+                <p><strong>Task notes:</strong>
+                    <span class="task-notes" role="textbox" contenteditable></span>
+                </p>
+            </div>
+        </div>
         <footer>
             <a href="https://github.com/skorzany/">&copy; 2025 Skorzany</a>
         </footer>
