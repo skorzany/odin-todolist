@@ -112,3 +112,38 @@ class Project {
         return this.#tasks[taskIdx];
     }
 }
+
+class ProjectList {
+    #projects;
+
+    constructor() {
+        this.#projects = [];
+    }
+
+    get projects() {
+        return this.#projects;
+    }
+
+    addProject(project) {
+        this.projects.push([this.projects.length, project]);
+    }
+
+    removeProject(idx) {
+        this.#projects.map((v) => {
+            if(idx < v[0]) v[0] -= 1;
+        });
+        this.projects.splice(idx, 1);
+    }
+}
+
+
+// tests
+const myProjects = new ProjectList();
+myProjects.addProject('xyz');
+console.log(myProjects.projects);   // should be [[0, 'xyz']]
+myProjects.addProject('123');
+myProjects.addProject(new Project({name: "Project name",}));
+console.log(myProjects.projects);   // should be [[0, 'xyz], [1, '123'], [2, Project {name: "Project name"}]]
+console.log(myProjects.projects[2][1].name);   // should be "Project name"
+myProjects.removeProject(1);
+console.log(myProjects.projects);   // should be [[0, 'xyz'], [1, Project {name: "Project name"}]]
