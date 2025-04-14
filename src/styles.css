@@ -331,3 +331,25 @@ fieldset li+li {
     color: gray;
 }
 /* ===== END OF TASK CARD ===== */
+
+/* ===== SCROLLBAR STYLE FOR CHROME ===== */
+::-webkit-scrollbar {
+    width: .25rem;
+}
+
+aside::-webkit-scrollbar-thumb {
+    background-color: var(--card-color);
+}
+
+aside::-webkit-scrollbar-track {
+    background-color: var(--side-color);
+}
+
+main::-webkit-scrollbar-thumb {
+    background-color: var(--card-color);
+}
+
+main::-webkit-scrollbar-track {
+    background-color: var(--main-color);
+}
+/* ===== END OF SCROLLBAR STYLE FOR CHROME ===== */
