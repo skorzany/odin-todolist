@@ -1,3 +1,6 @@
+import { capitalize } from "./utils.js";
+
+
 class Task {
     constructor({title="", description="", dueDate="1900-01-01",
         priority="normal", completed="false", notes=""}={}) {
@@ -34,11 +37,11 @@ class Task {
     }
 
     set title(value) {
-        this._title = value;
+        this._title = capitalize(value);
     }
 
     set description(value) {
-        this._description = value;
+        this._description = capitalize(value);
     }
 
     set dueDate(value) {
@@ -73,7 +76,7 @@ class Project {
     }
 
     set name(value) {
-        this._name = value;
+        this._name = capitalize(value);
     }
 
     addTask(task) {
@@ -88,3 +91,38 @@ class Project {
         return this.tasks[taskIdx];
     }
 }
+
+export { Task, Project };
+// ===== TESTS =====
+const myProject = new Project({name: "default name"});
+console.log(myProject.name);    // should be "default name"
+myProject.name = "breakfast";
+console.log(myProject.name)     // should be "Breakfast"
+
+const myTask = new Task({
+    title: "Gather ingredients", description: "Gather all the necessary ingredients",
+    dueDate: "2025-04-15", completed: "true", notes:"Ingredients list:\nEggs,\nMilk,\nButter,\nSalt,\nPepper."
+});
+console.log(myTask.title)        //should be "Prepare ingredients"
+console.log(myTask.dueDate)     //should be "2025-04-15"
+myProject.addTask(myTask);
+
+const anotherTask = new Task({
+    title: "Prepare ingredients", description:"Wash the eggs and follow the instructions in the notes.",
+    dueDate: "2025-04-15", notes: "1. Beat the eggs\n\tPlace them in a medium bowl and whisk until the yolk and whites are thoroughly combined. Add the milk and whisk again.\n2. Gently preheat the pan\n\tMelt a little butter inside it. Warm the skillet over medium heat.\n3. Cook\n\tPour in the egg mixture, and cook it over medium-low heat, folding and stirring the eggs every few seconds."
+});
+myProject.addTask(anotherTask);
+
+const finalTask = new Task({
+    title: "Wash the dishes", description: "Clean up the kitchen after you're done eating.",
+    dueDate: "2025-04-15", priority: "high",
+});
+myProject.addTask(finalTask);
+
+const trashTask = new Task();
+myProject.addTask(trashTask);
+console.log(myProject.tasks);   //should be [Task {}x4]
+
+console.log(myProject.selectTask(3));   //should be task with default values
+myProject.removeTask(3);
+console.log(myProject.tasks);   //should be [Task {}x3] without the default task that was previously removed
