@@ -7,6 +7,7 @@ import { Task, Project } from "./model.js";
 import { clearElement } from "./utils.js";
 
 
+let projectInFocus;
 const projects = [];
 const btn = document.querySelector(".btn-new-project");
 const sideContent = document.querySelector("#sidebar-content");
@@ -31,7 +32,6 @@ function viewTask(project, taskIdx) {
             project.removeTask(taskIdx);
             viewProjects();
         }
-
     });
 
     const crossIcon = document.createElement("img");
@@ -39,8 +39,15 @@ function viewTask(project, taskIdx) {
     crossIcon.alt = "Close icon";
     crossIcon.classList.add("icon", "icon-card");
     crossIcon.addEventListener("click", () => {
-        //TODO: save inputs
+        task.title = document.querySelector(".task-title").textContent;
+        task.description = document.querySelector(".task-desc").textContent;
+        task.dueDate = document.querySelector("#dueDate").value;
+        task.priority = document.querySelector("#priority").value;
+        task.completed = document.querySelector("input[name='completionStatus']:checked").value;
+        //to preserve rich-text formatting, the notes element should be some kind of WYSIWYG editor... but it requires external code. So preserving formatting is postponed for now!
+        task.notes = document.querySelector(".task-notes").innerText;
         clearElement(mainContent);
+        viewProjects();
     });
 
     iconsBox.append(trashIcon, crossIcon);
@@ -53,7 +60,7 @@ function viewTask(project, taskIdx) {
             <div class="controls-top">
                 <div class="card-date">
                     <label for="dueDate">DueDate: 
-                        <input type="date" name="dueDate" id="dueDate" value="${task.dueDate}"/>
+                        <input type="date" name="dueDate" id="dueDate" value="${task.dueDate}" min="1950-01-01" max="2050-01-01"/>
                     </label>
                 </div>
                 <div class="card-priority">
@@ -89,6 +96,15 @@ function viewTask(project, taskIdx) {
     `;
     card.insertAdjacentHTML("beforeend", template);
     mainContent.appendChild(card);
+    //prevent user from entering newlines in task title and description
+    const title = document.querySelector(".task-title");
+    const desc = document.querySelector(".task-desc");
+    title.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") e.preventDefault();
+    });
+    desc.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") e.preventDefault();
+    });
 }
 
 function viewProjects() {
@@ -97,7 +113,8 @@ function viewProjects() {
         const project = projectData.project;
         const details = document.createElement("details");
         details.classList.add("project");
-        if (projectData.focused) details.setAttribute("open", "");
+        if (projectInFocus === project) details.classList.add("in-focus");
+        if (projectData.opened) details.setAttribute("open", "");
 
         const summary = document.createElement("summary");
         const projectName = document.createElement("span");
@@ -128,16 +145,17 @@ function viewProjects() {
         deleteIcon.classList.add("icon", "icon-side");
         deleteIcon.addEventListener("click", (e) => {
             e.preventDefault();
-            if (window.confirm(`WARNING: this operation is irreversible!\n\nDelete project: "${project.name || "NewProject"}"?`))
+            if (window.confirm(`WARNING: this operation is irreversible!\n\nDelete project: "${project.name || "NewProject"}"?`)) {
                 projects.splice(idx, 1);
-            //TODO: if currently displayed task is from this project, clear the main content
+                if(projectInFocus === project) clearElement(mainContent);
+            }
             viewProjects();
         });
         iconsBox.append(editIcon, deleteIcon);
 
         summary.appendChild(projectName);
         projectName.addEventListener("click", () => {
-            projectData.focused = !projectData.focused;
+            projectData.opened = !projectData.opened;
         });
         summary.appendChild(iconsBox);
         details.appendChild(summary);
@@ -153,6 +171,8 @@ function viewProjects() {
             taskList.appendChild(li);
             li.addEventListener("click", () => {
                 viewTask(project, idx);
+                projectInFocus = project;
+                viewProjects();
             });
         }
         const newTask = document.createElement("li");
@@ -171,6 +191,6 @@ function viewProjects() {
 
 btn.addEventListener("click", () => {
     const newProject = new Project();
-    projects.push({focused: false, project: newProject});
+    projects.push({opened: false, project: newProject});
     viewProjects();
 });

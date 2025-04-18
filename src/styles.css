@@ -144,7 +144,8 @@ details:last-of-type {
     margin-bottom: 0;
 }
 
-.project:hover {
+.project:hover,
+.in-focus {
     backdrop-filter: brightness(90%);
     border-radius: .25rem;
 }
