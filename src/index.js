@@ -4,14 +4,16 @@ import cross from "./img/close.svg";
 import pencil from "./img/pencil.svg";
 import trash from "./img/delete.svg";
 import { Task, Project } from "./model.js";
-import { clearElement } from "./utils.js";
+import { clearElement, addToStorage, getFromStorage, buildProjectList } from "./utils.js";
 
 
 let projectInFocus;
-const projects = [];
+const storage = localStorage;
+const projects = buildProjectList(getFromStorage(storage, "projects"));
 const btn = document.querySelector(".btn-new-project");
 const sideContent = document.querySelector("#sidebar-content");
 const mainContent = document.querySelector("#main-content");
+viewProjects();
 
 function viewTask(project, taskIdx) {
     clearElement(mainContent);
@@ -30,6 +32,7 @@ function viewTask(project, taskIdx) {
         if(confirm(`WARNING: this operation is irreversible!\n\nDelete task: "${task.title || "NewTask"}"?`)) {
             clearElement(mainContent);
             project.removeTask(taskIdx);
+            addToStorage(storage, projects);
             viewProjects();
         }
     });
@@ -46,6 +49,7 @@ function viewTask(project, taskIdx) {
         task.completed = document.querySelector("input[name='completionStatus']:checked").value;
         //to preserve rich-text formatting, the notes element should be some kind of WYSIWYG editor... but it requires external code. So preserving formatting is postponed for now!
         task.notes = document.querySelector(".task-notes").innerText;
+        addToStorage(storage, projects);
         clearElement(mainContent);
         viewProjects();
     });
@@ -135,6 +139,7 @@ function viewProjects() {
             e.preventDefault();
             const newName = prompt("Enter new name for the project:") ?? project.name;
             project.name =  newName.trim() || project.name;
+            addToStorage(storage, projects);
             viewProjects();
         });
 
@@ -148,6 +153,7 @@ function viewProjects() {
             if (window.confirm(`WARNING: this operation is irreversible!\n\nDelete project: "${project.name || "NewProject"}"?`)) {
                 projects.splice(idx, 1);
                 if(projectInFocus === project) clearElement(mainContent);
+                addToStorage(storage, projects);
             }
             viewProjects();
         });
@@ -156,6 +162,7 @@ function viewProjects() {
         summary.appendChild(projectName);
         projectName.addEventListener("click", () => {
             projectData.opened = !projectData.opened;
+            addToStorage(storage, projects);
         });
         summary.appendChild(iconsBox);
         details.appendChild(summary);
@@ -181,6 +188,7 @@ function viewProjects() {
         taskList.appendChild(newTask);
         newTask.addEventListener("click", () => {
             project.addTask(new Task());
+            addToStorage(storage, projects);
             viewProjects();
         });
         details.appendChild(taskList);
@@ -192,5 +200,6 @@ function viewProjects() {
 btn.addEventListener("click", () => {
     const newProject = new Project();
     projects.push({opened: false, project: newProject});
+    addToStorage(storage, projects);
     viewProjects();
 });
