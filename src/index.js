@@ -4,11 +4,12 @@ import cross from "./img/close.svg";
 import pencil from "./img/pencil.svg";
 import trash from "./img/delete.svg";
 import { Task, Project } from "./model.js";
-import { clearElement, addToStorage, getFromStorage, buildProjectList } from "./utils.js";
+import { clearElement, storageAvailable, addToStorage, getFromStorage, buildProjectList } from "./utils.js";
 
 
 let projectInFocus;
-const storage = localStorage;
+
+const storage = storageAvailable("localStorage") ? localStorage : {};
 const projects = buildProjectList(getFromStorage(storage, "projects"));
 const btn = document.querySelector(".btn-new-project");
 const sideContent = document.querySelector("#sidebar-content");
