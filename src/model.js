@@ -45,7 +45,7 @@ class Task {
     }
 
     set dueDate(value) {
-        this._dueDate = value;  
+        this._dueDate = value;
     }
 
     set priority(value) {
@@ -79,12 +79,21 @@ class Project {
         this._name = capitalize(value);
     }
 
+    set tasks(arr) {
+        this._tasks = arr;
+    }
+
+    hasTask(task) {
+        return Boolean(this.tasks.find((ele) => {ele === task}));
+    }
+
     addTask(task) {
         this.tasks.push(task);
     }
 
-    removeTask(taskIdx) {
-        this.tasks.splice(taskIdx, 1);
+    removeTask(task) {
+        //this.tasks.splice(taskIdx, 1);
+        this.tasks = this.tasks.filter((val) => {val !== task});
     }
 
     selectTask(taskIdx) {
