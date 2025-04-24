@@ -62,7 +62,7 @@ class Task {
 }
 
 class Project {
-    constructor(name="NewProject") {
+    constructor(name="New project") {
         this._name = name;
         this._tasks = [];
     }
@@ -84,7 +84,7 @@ class Project {
     }
 
     hasTask(task) {
-        return Boolean(this.tasks.find((ele) => {ele === task}));
+        return Boolean(this.tasks.some(ele => ele === task));
     }
 
     addTask(task) {
@@ -92,8 +92,7 @@ class Project {
     }
 
     removeTask(task) {
-        //this.tasks.splice(taskIdx, 1);
-        this.tasks = this.tasks.filter((val) => {val !== task});
+        this.tasks = this.tasks.filter(val => val !== task);
     }
 
     selectTask(taskIdx) {

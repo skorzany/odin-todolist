@@ -3,7 +3,7 @@ import { TaskView, ProjectView } from "./views.js";
 import { clearElement, storageAvailable } from "./utils.js";
 
 
-class ToDoApp {
+export class ToDoApp {
     constructor() {
         this.containerSide = document.querySelector("#sidebar-content");
         this.containerMain = document.querySelector("#main-content");
@@ -35,7 +35,7 @@ class ToDoApp {
             json = JSON.parse(json);
             for (const project of json) {
                 const newProject = new Project(project["_name"]);
-                for (const task of project.tasks) {
+                for (const task of project["_tasks"]) {
                     newProject.addTask(new Task({
                         title: task["_title"],
                         description: task["_description"],
@@ -45,7 +45,7 @@ class ToDoApp {
                         notes: task["_notes"]
                     }));
                 }
-                this.projects.push(project);
+                this.projects.push(newProject);
             }
         }
     }
@@ -53,16 +53,16 @@ class ToDoApp {
     viewSideContent() {
         clearElement(this.containerSide);
         for (const project of this.projects) {
-            const projectView = new ProjectView(project, this.containerSide);
-            projectView.draw();
+            const projectView = new ProjectView(project);
+            projectView.draw(this.containerSide);
         }
     }
 
     viewMainContent() {
         clearElement(this.containerMain);
         if (this.taskInFocus) {
-            const taskView = new TaskView(this.taskInFocus, this.containerMain);
-            taskView.draw();
+            const taskView = new TaskView(this.taskInFocus);
+            taskView.draw(this.containerMain);
         }
     }
 
@@ -72,17 +72,65 @@ class ToDoApp {
     }
 
     addSideListeners() {
-        //TODO
+        const iconBoxes = this.containerSide.querySelectorAll(".side-icons");
+        const uls = this.containerSide.querySelectorAll("ul");
+
+        for (const [projectIdx, project] of this.projects.entries()) {
+            //project view: tasks
+            const tasks = project.tasks;
+            const listItems = [...uls[projectIdx].children];
+            for (const [i, item] of listItems.entries()) {
+                item.addEventListener("click", () => {
+                    if (i !== tasks.length) {
+                        this.taskInFocus = tasks[i];
+                        this.viewMainContent();
+                        this.addMainListeners();
+                    } else {
+                        project.addTask(new Task());
+                        this.writeStorage();
+                        this.viewSideContent();
+                        this.addSideListeners();
+                    }
+                });
+            }
+            //project view: icons
+            const [edit, del] = [...iconBoxes[projectIdx].children];
+            edit.addEventListener("click", (e) => {
+                e.preventDefault();
+                const newName = prompt(
+                    `Enter new name for the project: "${project.name}"`
+                ) ?? project.name;
+
+                project.name = newName.trim() || project.name;
+                this.writeStorage();
+                this.viewSideContent();
+                this.addSideListeners();
+            });
+            del.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (confirm(
+                    "WARNING: This operation is irreversible!\n\n" +
+                    `Delete project: "${project.name}"?`
+                )) {
+                    if (tasks.find((task) => {task === this.taskInFocus})) {
+                        this.taskInFocus = null;
+                    }
+                    this.projects.splice(projectIdx, 1);
+                    this.writeStorage();
+                    this.viewAll();
+                    this.addSideListeners();
+                }
+            });
+        }
     }
 
     addMainListeners() {
-        const icons = document.querySelectorAll(".icon-card");
-        const title = document.querySelector(".task-title");
-        const desc = document.querySelector(".task-desc");
-        const date = document.querySelector("#dueDate");
-        const priority = document.querySelector("#priority");
-        const completed = document.querySelector("input[name='completionStatus']:checked");
-        const notes = document.querySelector(".task-notes");
+        const icons = this.containerMain.querySelectorAll(".icon-card");
+        const title = this.containerMain.querySelector(".task-title");
+        const desc = this.containerMain.querySelector(".task-desc");
+        const date = this.containerMain.querySelector("#dueDate");
+        const priority = this.containerMain.querySelector("#priority");
+        const notes = this.containerMain.querySelector(".task-notes");
         const task = this.taskInFocus;
         //trash icon
         icons[0].addEventListener("click", () => {
@@ -108,7 +156,9 @@ class ToDoApp {
             task.description = desc.textContent;
             task.dueDate = date.value;
             task.priority = priority.value;
-            task.completed = completed.value;
+            task.completed = this.containerMain.querySelector(
+                "input[name='completionStatus']:checked"
+            ).value;
             task.notes = notes.textContent;
 
             this.taskInFocus = null;
@@ -117,7 +167,7 @@ class ToDoApp {
             this.addSideListeners();
         });
         //prevent users from entering newlines in title and description
-        for (ele of [title, desc]) {
+        for (const ele of [title, desc]) {
             ele.addEventListener("keydown", (e) => {
                 if (e.key === "Enter") e.preventDefault();
             });

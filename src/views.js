@@ -4,13 +4,12 @@ import cross from "./img/close.svg";
 
 
 class ProjectView {
-    constructor(project, container) {
+    constructor(project) {
         this.name = project.name;
         this.tasks = project.tasks;
-        this.container = container;
     }
 
-    draw() {
+    draw(targetContainer) {
         const details = document.createElement("details");
         details.classList.add("project");
         // adding class 'in-focus' & attribute "open"="" will be controller's duty
@@ -50,17 +49,16 @@ class ProjectView {
             newTask.textContent = "Add new task";
           taskList.appendChild(newTask);
         details.append(summary, taskList);
-        this.container.appendChild(details);
+        targetContainer.appendChild(details);
     }
 }
 
 class TaskView {
-    constructor(task, container) {
+    constructor(task) {
         this.task = task;
-        this.container = container;
     }
 
-    draw() {
+    draw(targetContainer) {
         const card = document.createElement("div");
         card.classList.add("task-card");
           const iconsBox = document.createElement("div");
@@ -75,7 +73,7 @@ class TaskView {
             crossIcon.src = cross;
             crossIcon.alt = "Close icon";
             crossIcon.title = "Save and close";
-            crossIcon.classList.add("icon", "card-icon");
+            crossIcon.classList.add("icon", "icon-card");
           iconsBox.append(trashIcon, crossIcon);
 
           const template = `
@@ -116,13 +114,13 @@ class TaskView {
                 </fieldset>
             </div>
             <p><strong>Task notes: </strong>
-                <span class="task-notes" role="textbox" contenteditable>${task.notes}</span>
+                <span class="task-notes" role="textbox" contenteditable>${this.task.notes}</span>
             </p>
           `;
 
         card.appendChild(iconsBox);
         card.insertAdjacentHTML("beforeend", template);
-        this.container.appendChild(card);
+        targetContainer.appendChild(card);
     }
 }
 
