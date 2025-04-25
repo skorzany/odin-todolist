@@ -181,6 +181,11 @@ li::marker {
     color: var(--main-color);
     text-align: bottom;
 }
+
+.special {
+    font-weight: bold;
+    text-decoration: underline;
+}
 /* ===== END OF SIDEBAR ===== */
 
 /* ===== TASK CARD ===== */

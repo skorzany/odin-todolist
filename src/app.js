@@ -9,6 +9,7 @@ export class ToDoApp {
         this.containerMain = document.querySelector("#main-content");
         this.buttonMain = document.querySelector(".btn-new-project");
         this.storage = (storageAvailable("localStorage") ? localStorage : {});
+        this.cache = new Set();
         this.projects = [];
         this.projectInFocus = null;
         this.taskInFocus = null;
@@ -17,8 +18,7 @@ export class ToDoApp {
             const newProject = new Project();
             this.projects.push(newProject);
             this.writeStorage();
-            this.viewSideContent();
-            this.addSideListeners();
+            this.viewAll();
         });
     }
 
@@ -52,9 +52,12 @@ export class ToDoApp {
 
     viewSideContent() {
         clearElement(this.containerSide);
-        for (const project of this.projects) {
+        for (const [i, project] of this.projects.entries()) {
             const projectView = new ProjectView(project);
-            projectView.draw(this.containerSide);
+            projectView.draw(this.containerSide, this.taskInFocus);
+            const lastElement = this.containerSide.querySelector("details:last-child");
+            if (this.cache.has(i)) lastElement.setAttribute("open", "");
+            if (this.projectInFocus === project) lastElement.classList.add("in-focus");
         }
     }
 
@@ -68,29 +71,37 @@ export class ToDoApp {
 
     viewAll() {
         this.viewSideContent();
+        this.addSideListeners();
         this.viewMainContent();
+        if (this.taskInFocus) this.addMainListeners();
     }
 
     addSideListeners() {
+        const details = this.containerSide.querySelectorAll("details");
         const iconBoxes = this.containerSide.querySelectorAll(".side-icons");
         const uls = this.containerSide.querySelectorAll("ul");
 
+        for (const [i, detail] of [...details].entries()) {
+            detail.addEventListener("toggle", (e) => {
+                e.newState === "open" ?
+                    this.cache.add(i) : this.cache.delete(i);
+            })
+        }
+
         for (const [projectIdx, project] of this.projects.entries()) {
             //project view: tasks
-            const tasks = project.tasks;
+            const L = project.tasks.length;
             const listItems = [...uls[projectIdx].children];
             for (const [i, item] of listItems.entries()) {
                 item.addEventListener("click", () => {
-                    if (i !== tasks.length) {
-                        this.taskInFocus = tasks[i];
-                        this.viewMainContent();
-                        this.addMainListeners();
-                    } else {
+                    this.projectInFocus = project;
+                    if (i !== L) this.taskInFocus = project.selectTask(i);
+                    else {
                         project.addTask(new Task());
                         this.writeStorage();
-                        this.viewSideContent();
-                        this.addSideListeners();
+                        this.taskInFocus = project.selectTask(i);
                     }
+                    this.viewAll();
                 });
             }
             //project view: icons
@@ -103,8 +114,7 @@ export class ToDoApp {
 
                 project.name = newName.trim() || project.name;
                 this.writeStorage();
-                this.viewSideContent();
-                this.addSideListeners();
+                this.viewAll();
             });
             del.addEventListener("click", (e) => {
                 e.preventDefault();
@@ -112,13 +122,12 @@ export class ToDoApp {
                     "WARNING: This operation is irreversible!\n\n" +
                     `Delete project: "${project.name}"?`
                 )) {
-                    if (tasks.find((task) => {task === this.taskInFocus})) {
+                    if (project.hasTask(this.taskInFocus)) {
                         this.taskInFocus = null;
                     }
                     this.projects.splice(projectIdx, 1);
                     this.writeStorage();
                     this.viewAll();
-                    this.addSideListeners();
                 }
             });
         }
@@ -147,7 +156,6 @@ export class ToDoApp {
                 this.taskInFocus = null;
                 this.writeStorage();
                 this.viewAll();
-                this.addSideListeners();
             }
         });
         //save-and-close icon
@@ -164,7 +172,6 @@ export class ToDoApp {
             this.taskInFocus = null;
             this.writeStorage();
             this.viewAll();
-            this.addSideListeners();
         });
         //prevent users from entering newlines in title and description
         for (const ele of [title, desc]) {
@@ -175,8 +182,7 @@ export class ToDoApp {
     }
 
     run() {
-        this.buildProjectList(this.readStorage());
+        this.buildProjectList(this.readStorage("projects"));
         this.viewAll();
-        this.addSideListeners();
     }
 }

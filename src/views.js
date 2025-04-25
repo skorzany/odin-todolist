@@ -9,10 +9,9 @@ class ProjectView {
         this.tasks = project.tasks;
     }
 
-    draw(targetContainer) {
+    draw(targetContainer, specialTask=null) {
         const details = document.createElement("details");
         details.classList.add("project");
-        // adding class 'in-focus' & attribute "open"="" will be controller's duty
           const summary = document.createElement("summary");
             const projectName = document.createElement("span");
             projectName.classList.add("project-name");
@@ -41,6 +40,7 @@ class ProjectView {
               );
               const li = document.createElement("li");
               li.classList.add(taskClass);
+              if (task === specialTask) li.classList.add("special");
               li.textContent = task.title || "NewTask";
               taskList.appendChild(li);
             }
