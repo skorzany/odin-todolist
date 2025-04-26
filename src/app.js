@@ -126,6 +126,7 @@ export class ToDoApp {
                         this.taskInFocus = null;
                     }
                     this.projects.splice(projectIdx, 1);
+                    this.cache.delete(projectIdx);
                     this.writeStorage();
                     this.viewAll();
                 }
