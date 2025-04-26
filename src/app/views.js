@@ -1,6 +1,6 @@
-import pencil from "./img/pencil.svg";
-import trash from "./img/delete.svg";
-import cross from "./img/close.svg";
+import pencil from "../img/pencil.svg";
+import trash from "../img/delete.svg";
+import cross from "../img/close.svg";
 
 
 class ProjectView {
