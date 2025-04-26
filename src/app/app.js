@@ -50,6 +50,15 @@ export class ToDoApp {
         }
     }
 
+    decreaseCacheIndexes(treshold) {
+        const newCache = new Set();
+        for (const i of this.cache) {
+            if (i < treshold) newCache.add(i);
+            else newCache.add(i - 1);
+        }
+        this.cache = newCache;
+    }
+
     viewSideContent() {
         clearElement(this.containerSide);
         for (const [i, project] of this.projects.entries()) {
@@ -127,6 +136,7 @@ export class ToDoApp {
                     }
                     this.projects.splice(projectIdx, 1);
                     this.cache.delete(projectIdx);
+                    if (this.cache.size) this.decreaseCacheIndexes(projectIdx);
                     this.writeStorage();
                     this.viewAll();
                 }
