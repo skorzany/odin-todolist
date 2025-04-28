@@ -1,13 +1,46 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Italic.woff2') format('woff2'),
+        url('../fonts/Roboto-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Regular.woff2') format('woff2'),
+        url('../fonts/Roboto-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
+    font-family: "Roboto", Arial, sans-serif;
     font-size: 16px;
     --side-color: rgba(252, 163, 17, 1);
     --main-color: rgba(20, 33, 61, 1);
     --card-color: rgba(229, 229, 229, 1);
+    --scrollbar-width: .25rem;
+    --side-min-width: 250px;
+    --side-max-width: 350px;
+    --card-min-width: 600px;
+    --icon-profile-size: 3rem;
+    --icon-card-size: 2rem;
+    --icon-side-size: 1rem;
+    --footer-font-size: .75rem;
+    --task-side-font-size: .85rem;
+    --task-side-marker-size: .75rem;
 }
 
 /* ===== PAGE LAYOUT ===== */
-body {
+body,
+main {
     display: flex;
+}
+
+body {
     width: 100vw;
     height: 100vh;
     overflow-y: hidden;
@@ -22,7 +55,6 @@ aside {
 main {
     flex: 1;
     background-color: var(--main-color);
-    display: flex;
     flex-direction: column;
     overflow-y: scroll;
 }
@@ -32,7 +64,7 @@ footer {
     margin-bottom: .5rem;
     text-align: center;
     color: var(--card-color);
-    font-size: .75rem;
+    font-size: var(--footer-font-size);
 }
 
 footer a {
@@ -44,38 +76,60 @@ footer a:visited {
 }
 /* ===== END OF PAGE LAYOUT ===== */
 
+/* ===== CURSORS ===== */
+.icon,
+button,
+.profile,
+.project,
+input[type="date"],
+select,
+fieldset label {
+    cursor: pointer;
+}
+
+.task-card {
+    cursor: default;
+}
+
+*[contenteditable] {
+    cursor: text;
+}
+/* ===== END OF CURSORS ===== */
+
 /* ===== ICONS ===== */
 .icon {
-    cursor: pointer;
     filter: invert(11%) sepia(11%) saturate(4734%) hue-rotate(189deg) brightness(92%) contrast(95%);
 }
 
 .icon-profile {
-    width: 3rem;
+    width: var(--icon-profile-size);
 }
 
 .icon-side {
-    width: 1rem;
+    width: var(--icon-side-size);
 }
 
 .icon-card {
-    width: 2rem;
+    width: var(--icon-card-size);
+}
+
+aside .icon:not(.icon-profile):hover,
+main .icon:hover {
+    border-radius: 25%;
 }
 
 aside .icon:not(.icon-profile):hover {
     backdrop-filter: opacity(.15);
-    border-radius: 25%;
 }
 
 main .icon:hover {
     backdrop-filter: opacity(.5);
-    border-radius: 25%;
 }
 /* ===== END OF ICONS ===== */
 
 /* ===== BUTTONS ===== */
 button {
-    cursor: pointer;
+    margin-bottom: 1rem;
 }
 /* ===== END OF BUTTONS ===== */
 
@@ -83,7 +137,7 @@ button {
 aside {
     padding: 1rem;
     padding-top: 0;
-    width: clamp(250px, 15vw, 350px);
+    width: clamp(var(--side-min-width), 15vw, var(--side-max-width));
     overflow-y: scroll;
 }
 
@@ -96,12 +150,20 @@ aside {
     z-index: 1;
 }
 
-.profile {
+.profile,
+summary,
+details:hover .side-icons {
     display: flex;
+}
+
+.profile,
+summary {
     justify-content: space-between;
+}
+
+.profile {
     align-items: center;
     margin-bottom: 1rem;
-    cursor: pointer;
     padding-top: 1rem;
 }
 
@@ -109,19 +171,9 @@ aside {
     font-weight: bold;
 }
 
-.btn-new-project {
-    margin-bottom: 1rem;
-}
-
 .project {
     margin: 1rem 0;
-    cursor: pointer;
     padding: .25rem;
-}
-
-summary {
-    display: flex;
-    justify-content: space-between;
 }
 
 .project-name {
@@ -134,10 +186,6 @@ summary {
 .side-icons {
     display: none;
     gap: .5rem;
-}
-
-details:hover .side-icons {
-    display: flex;
 }
 
 details:last-of-type {
@@ -153,7 +201,7 @@ details:last-of-type {
 li {
     padding-left: 1rem;
     margin-top: .25rem;
-    font-size: .85rem;
+    font-size: var(--task-side-font-size);
 }
 
 li:hover {
@@ -161,7 +209,7 @@ li:hover {
 }
 
 li::marker {
-    font-size: .75rem;
+    font-size: var(--task-side-marker-size);
 }
 
 .task::marker {
@@ -189,28 +237,32 @@ li::marker {
 /* ===== END OF SIDEBAR ===== */
 
 /* ===== TASK CARD ===== */
+.task-card,
+.card-icons,
+.card-controls,
+.controls-top {
+    display: flex;
+}
+
+.task-card,
+.card-controls {
+    flex-direction: column;
+}
+
 .task-card {
     background-color: var(--card-color);
-    display: flex;
-    flex-direction: column;
     align-items: center;
     margin: 2rem 3rem;
     border-radius: 1.5rem;
-    min-width: 600px;
+    min-width: var(--card-min-width);
     text-align: center;
-    cursor: default;
-}
-
-*[contenteditable] {
-    cursor: text;
 }
 
 .card-icons {
     align-self: flex-end;
-    display: flex;
     justify-content: space-between;
     gap: .75rem;
-    transform: translate(-1rem, 1rem);  /*change later to half of card-icon width*/
+    transform: translate(calc(-.5*var(--icon-card-size)), calc(.5*var(--icon-card-size)));
 }
 
 .task-title {
@@ -226,8 +278,16 @@ li::marker {
     color: gray;
 }
 
-.task-title:focus {
+.task-title:focus,
+.task-desc:focus,
+input[type="date"],
+select {
     outline: 1px dashed var(--side-color);
+}
+
+fieldset,
+.task-notes {
+    border: 1px solid var(--side-color);
 }
 
 .task-title:before {
@@ -241,16 +301,22 @@ li::marker {
     border-bottom: 2px solid var(--side-color);
 }
 
+.task-desc,
+input[type="date"],
+select {
+    border-radius: 1rem;
+}
+
+.task-desc,
+.card-controls,
+.task-card p {
+    width: 80%;
+}
+
 .task-desc {
     margin: .5rem;
     margin-top: .75rem;
-    width: 80%;
-    border-radius: 1rem;
     padding: .25rem 1rem;
-}
-
-.task-desc:focus {
-    outline: 1px dashed var(--side-color);
 }
 
 .task-desc[contenteditable]:empty::before {
@@ -260,53 +326,47 @@ li::marker {
 
 .card-controls {
     margin: 1rem;
-    display: flex;
-    flex-direction: column;
     gap: 1rem;
-    width: 80%;
 }
 
 .controls-top {
-    display: flex;
     justify-content: space-around;
 }
 
-input[type="date"] {
-    border: none;
-    outline: 1px dashed var(--side-color);
-    border-radius: 1rem;
+input[type="date"],
+select,
+.task-notes {
     padding: 1px 6px;
-    cursor: pointer;
 }
 
+input[type="date"],
 select {
-    background-color: white;
     border: none;
-    outline: 1px dashed var(--side-color);
-    border-radius: 1rem;
-    padding: 1px 6px;
-    cursor: pointer;
+}
+
+select,
+.task-notes {
+    background-color: white;
 }
 
 fieldset {
     align-self: center;
-    border-color: var(--side-color);
-    border-style: solid;
+    border-width: 2px;
+}
+
+fieldset ul,
+.task-card p {
+    text-align: left;
 }
 
 fieldset ul {
     margin: 0;
     padding: 0;
     list-style: none;
-    text-align: left;
 }
 
 fieldset ul li:hover {
     text-decoration: none;
-}
-
-fieldset label {
-    cursor: pointer;
 }
 
 fieldset li+li {
@@ -314,18 +374,13 @@ fieldset li+li {
 }
 
 .task-card p {
-    width: 80%;
     margin-bottom: 2rem;
-    text-align: left;
 }
 
 .task-notes {
     display: block;
     width: 100%;
     min-height: 2rem;
-    padding: 1px 6px;
-    border: 1px solid var(--side-color);
-    background-color: white;
 }
 
 .task-notes:focus {
@@ -340,7 +395,7 @@ fieldset li+li {
 
 /* ===== SCROLLBAR STYLE FOR CHROME ===== */
 ::-webkit-scrollbar {
-    width: .25rem;
+    width: var(--scrollbar-width);
 }
 
 aside::-webkit-scrollbar-thumb {
